@@ -1,19 +1,22 @@
 import random
+import math
 
 
-def randomnumber():
+def RandomNumber():
     min = int(input('min:'))
     max = int(input('max:'))
-    print(random.randint(min, max))
-    mainInput()
+    try:
+        print(random.randint(min, max))
+    except ValueError:
+        print("invalid values, min must be lower than max")
+    AgainMenu(RandomNumber)
 
 
-def pick_one():
+def PickOne():
     print("enter your options separated by a comma and I'll pick one")
-    rawstr = input('>')
-    strList = rawstr.split(',')
-    print(strList[random.randint(0, (len(strList)-1))])
-    mainInput()
+    StrList = input('>').split(',')
+    print(StrList[random.randint(0, (len(StrList)-1))])
+    AgainMenu(PickOne)
 
 
 def NickNameGen():
@@ -21,20 +24,36 @@ def NickNameGen():
     firstname = input('firstname:')
     lastname = input('lastname:')
     print(f'{firstname} the {names[random.randint(0, (len(names)-1))]} {lastname}')
-    mainInput()
-                
+    AgainMenu(NickNameGen)
 
 
-def mainInput():
-    print('1: Random Number Generator \n2: Pick4Me \n3: nick name generator')
+def PythagInput():
+    a = int(input('A:'))
+    b = int(input('B:'))
+    print(math.sqrt(a**2 + b**2))
+
+
+def MainInput():
+    print('1: Random Number Generator \n2: Pick4Me \n3: nick name generator \n4: pythag calc')
     menuInput = int(input('>'))
     if menuInput == 1:
-        randomnumber()
+        RandomNumber()
     elif menuInput == 2:
-        pick_one()
+        PickOne()
     elif menuInput == 3:
+        NickNameGen()
+    elif menuInput == 4:
         NickNameGen()
 
 
+def AgainMenu(lastfuncname):
+    print('\n1: Again \n2: Menu')
+    menuInput = int(input('>'))
+    if menuInput == 1:
+        lastfuncname()
+    elif menuInput == 2:
+        MainInput()
 
-mainInput()
+
+MainInput()
+
